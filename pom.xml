@@ -21,10 +21,13 @@
     <properties>
         <java.version>1.8</java.version>
         <security.version>2.2.1.RELEASE</security.version>
-        <spring-boot-starter-web.version>2.2.1.RELEASE</spring-boot-starter-web.version>
+        <boot.version>2.2.1.RELEASE</boot.version>
         <lombok.version>1.18.12</lombok.version>
-        <spring-boot-starter-test.version>2.2.1.RELEASE</spring-boot-starter-test.version>
-        <spring-security-test.version>2.2.1.RELEASE</spring-security-test.version>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <velocity.version>2.0</velocity.version>
+        <swagger.version>3.0.0</swagger.version>
+        <mp-generator.version>3.4.1</mp-generator.version>
+        <mysql-connector-java.version>5.1.37</mysql-connector-java.version>
     </properties>
 
     <dependencyManagement>
@@ -37,7 +40,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-starter-web.version}</version>
+                <version>${boot.version}</version>
             </dependency>
 
             <dependency>
@@ -49,15 +52,47 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-security-test.version}</version>
+                <version>${security.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-test</artifactId>
-                <version>${spring-security-test.version}</version>
+                <version>${security.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- mybatis-plus代码生成器 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mp-generator.version}</version>
+            </dependency>
+            <!-- velocity 模板引擎, Mybatis Plus 代码生成器需要 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+
+            <!-- Swagger3 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- MySQl连接依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

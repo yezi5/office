@@ -1,5 +1,6 @@
 package com.yezi.office;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Data 2020/12/29 星期二 14:32
  */
 @SpringBootApplication
+@MapperScan(basePackages = "com.yezi.office.mapper")
 public class OfficeApplication {
 
     public static void main(String[] args) {
