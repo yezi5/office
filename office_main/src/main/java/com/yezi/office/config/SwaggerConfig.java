@@ -3,6 +3,7 @@ package com.yezi.office.config;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -21,8 +22,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @DevelopmentTools IntelliJ IDEA
  * @Data 2020/12/29 星期二 16:36
  */
-@Component
-@Configurable
+@Configuration
 @EnableOpenApi
 public class SwaggerConfig {
     @Bean
