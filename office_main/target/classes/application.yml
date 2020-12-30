@@ -1,0 +1,21 @@
+server:
+  port: 9999
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: office
+  redis:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/office?characterEncoding=UTF-8
+    username: root
+    password: root
+
+mybatis-plus:
+  type-aliases-package: com.yezi.office.pojo
+  mapper-locations: classpath:com/yezi/office/mapper/xml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
