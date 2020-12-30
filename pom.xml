@@ -13,7 +13,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yezi.ofice</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>office</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
