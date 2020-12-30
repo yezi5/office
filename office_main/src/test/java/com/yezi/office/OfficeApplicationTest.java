@@ -9,8 +9,19 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.yezi.office.mapper.UserMapper;
+import com.yezi.office.pojo.User;
+import com.yezi.office.pojo.vo.UserVo;
+import com.yezi.office.service.UserService;
+import com.yezi.office.utils.PassWorldUtils;
+import com.yezi.office.utils.StringUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
 
 /**
  * @author 叶子
@@ -19,14 +30,19 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @DevelopmentTools IntelliJ IDEA
  * @Data 2020/12/29 星期二 15:55
  */
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class OfficeApplicationTest {
+    @Autowired
+    private UserService userService;
+    @Resource
+    UserMapper mapper;
 
     /**
      * 代码生成器
      */
     @Test
-    public void test(){
+    public void create(){
         // 1、创建代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -80,5 +96,24 @@ public class OfficeApplicationTest {
 
         // 6、执行
         mpg.execute();
+    }
+
+    @Test
+    public void test(){
+        for (int i = 0; i < 15; i++) {
+            System.out.println(StringUtils.getId());
+        }
+    }
+
+    @Test
+    public void randMD5(){
+        System.out.println(new PassWorldUtils().encode("12345"));
+    }
+
+    @Test
+    public void test2(){
+        for (User user : userService.list()) {
+            System.out.println(user);
+        }
     }
 }

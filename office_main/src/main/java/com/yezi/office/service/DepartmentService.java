@@ -2,6 +2,10 @@ package com.yezi.office.service;
 
 import com.yezi.office.pojo.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yezi.office.pojo.para.Query;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DepartmentService extends IService<Department> {
 
+    /**
+     * 分页查询 + 条件查询
+     * @param query
+     * @return
+     */
+    Map<String, Object> pageList(Query query);
 }
