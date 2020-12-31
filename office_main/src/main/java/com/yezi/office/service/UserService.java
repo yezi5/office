@@ -26,4 +26,10 @@ public interface UserService extends IService<User> {
      */
     Map<String,Object> pageQuery(Query query);
 
+    /**
+     * 根据用户ID获取用户信息
+     * @param userId
+     * @return
+     */
+    Map<String,Object> getUserVoById(String userId);
 }

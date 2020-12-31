@@ -9,6 +9,7 @@ import com.yezi.office.pojo.para.Query;
 import com.yezi.office.service.DepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 
 
     @Override
+    @Transactional
     public Map<String, Object> pageList(Query query) {
         Page<Department> departPage = new Page<>(query.getPageIndex(),query.getPageSize());
         QueryWrapper<Department> wrapper = null;

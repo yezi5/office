@@ -1,5 +1,6 @@
 package com.yezi.office.pojo.para;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @Data 2020/12/30 星期三 10:01
  */
 @Data
+@ApiModel("查询参数")
 public class Query {
     private String departName;
     private String username;

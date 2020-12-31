@@ -1,19 +1,15 @@
 package com.yezi.office.config;
 
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Configurable;
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author 叶子
@@ -23,24 +19,30 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @Data 2020/12/29 星期二 16:36
  */
 @Configuration
-@EnableOpenApi
+@EnableSwagger2
 public class SwaggerConfig {
+
     @Bean
-    public Docket createRestApi(){
-        return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
+    public Docket webApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("叶子")
+                .apiInfo(webApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
+
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo webApiInfo(){
+
         return new ApiInfoBuilder()
                 .title("协同办公系统接口文档")
-                .contact(new Contact("叶子","http://www.yezi.icu/","2693830285@qq.com"))
-                .description("协同办公系统前后端分离使用接口文档")
+                .description("本文档描述了课程中心微服务接口定义")
                 .version("1.0")
+                .contact(new Contact("叶子", "https://github.com/yezi5", "2693830285@qq.com"))
                 .build();
     }
 }
+
+

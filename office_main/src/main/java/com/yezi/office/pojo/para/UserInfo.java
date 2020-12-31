@@ -2,7 +2,9 @@ package com.yezi.office.pojo.para;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.sql.Timestamp;
 
@@ -13,7 +15,12 @@ import java.sql.Timestamp;
  * @DevelopmentTools IntelliJ IDEA
  * @Data 2020/12/30 星期三 14:24
  */
-public class AddUser {
+@Data
+@ApiModel("封装添加用户信息")
+public class UserInfo {
+
+    @ApiModelProperty(value = "用户ID")
+    private String userId;
 
     @ApiModelProperty(value = "用户名")
     private String username;

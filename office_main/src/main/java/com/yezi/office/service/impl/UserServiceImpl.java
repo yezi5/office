@@ -73,4 +73,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         return map;
     }
+
+    @Override
+    public Map<String,Object> getUserVoById(String userId) {
+        UserVo userVo = new UserVo();
+        User user = baseMapper.selectById(userId);
+        BeanUtils.copyProperties(user,userVo);
+
+        Department department = departmentService.getById(user.getUserDapartmentId());
+        userVo.setDepartName(department.getDepartName());
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("userInfo",userVo);
+
+        return map;
+    }
 }

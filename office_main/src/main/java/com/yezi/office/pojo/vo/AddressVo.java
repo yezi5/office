@@ -1,7 +1,5 @@
 package com.yezi.office.pojo.vo;
 
-import com.yezi.office.pojo.Address;
-import com.yezi.office.pojo.para.AddUser;
 import lombok.Data;
 
 /**

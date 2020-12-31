@@ -3,6 +3,8 @@ package com.yezi.office;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
  * @author 叶子
@@ -21,4 +23,15 @@ public class OfficeApplication {
                 args
         );
     }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+
+        PropertySourcesPlaceholderConfigurer c = new PropertySourcesPlaceholderConfigurer();
+
+        c.setIgnoreUnresolvablePlaceholders(true);
+
+        return c;
+    }
+
 }
