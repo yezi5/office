@@ -2,12 +2,16 @@ package com.yezi.office.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yezi.office.pojo.Department;
 import com.yezi.office.mapper.DepartmentMapper;
+import com.yezi.office.pojo.User;
 import com.yezi.office.pojo.para.Query;
 import com.yezi.office.service.DepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yezi.office.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +29,8 @@ import java.util.Map;
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
 
-
+    @Autowired
+    private UserService userService;
 
     @Override
     @Transactional
@@ -43,5 +48,17 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         map.put("pageTotal",page.getTotal());
 
         return map;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteById(String departId) {
+        UpdateWrapper<User> userWrapper = new UpdateWrapper<>();
+        userWrapper.eq("user_dapartment_id",departId);
+
+        userService.remove(userWrapper);
+        removeById(departId);
+
+        return true;
     }
 }

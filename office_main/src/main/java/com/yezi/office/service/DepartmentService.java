@@ -23,4 +23,11 @@ public interface DepartmentService extends IService<Department> {
      * @return
      */
     Map<String, Object> pageList(Query query);
+
+    /**
+     * 根据部门ID删除部门信息，包括部门下所有员工信息
+     * @param departId
+     * @return
+     */
+    boolean deleteById(String departId);
 }

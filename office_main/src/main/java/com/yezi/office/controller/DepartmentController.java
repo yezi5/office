@@ -8,6 +8,7 @@ import com.yezi.office.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +44,33 @@ public class DepartmentController {
     public R getAll(){
         List<Department> selectList = departmentService.list();
         return R.ok().data("selectList",selectList);
+    }
+
+    @ApiOperation("根据用户ID修改用户信息")
+    @PostMapping("/update")
+    @Transactional
+    public R update(@RequestBody Department department){
+        System.out.println(department);
+        boolean b = departmentService.updateById(department);
+
+        return R.ok();
+    }
+
+    @ApiOperation("根据部门ID删除部门信息")
+    @DeleteMapping("/delete/{id}")
+    public R delete(@PathVariable("id") String departId){
+        boolean rs = departmentService.deleteById(departId);
+
+        return R.ok();
+    }
+
+    @ApiOperation("添加部门信息")
+    @PostMapping("/add")
+    public R add(@RequestBody Department department){
+        department.setDepartUserCount(0);
+        departmentService.save(department);
+
+        return R.ok().data("department",department);
     }
 }
 

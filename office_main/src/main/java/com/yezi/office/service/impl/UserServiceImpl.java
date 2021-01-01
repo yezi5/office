@@ -68,7 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         Map<String,Object> map = new HashMap<>();
         map.put("userList",userVoList);
-        map.put("pageTotal",userPage.getTotal());
+        map.put("pageTotal",userVoList.size());
         map.put("selectList",departmentList);
 
         return map;
