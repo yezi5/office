@@ -51,7 +51,7 @@ public class Affair implements Serializable {
     private Date affairEndTime;
 
     @ApiModelProperty(value = "共计时长，事务共有字段")
-    private Date affairTime;
+    private String affairTime;
 
     @ApiModelProperty(value = "申请地点，事务共有字段")
     private String affairAddress;

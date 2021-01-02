@@ -32,4 +32,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     Map<String,Object> getUserVoById(String userId);
+
+    /**
+     * 根据用户名 模糊查询 相关用户ID
+     * @param username
+     * @return
+     */
+    List<String> listByUserName(String username);
 }

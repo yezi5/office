@@ -88,4 +88,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         return map;
     }
+
+    @Override
+    public List<String> listByUserName(String username) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("username",username);
+        List<User> userList = baseMapper.selectList(wrapper);
+
+        List<String> idList = new ArrayList<>();
+
+        for (User user : userList) {
+            idList.add(user.getUserId());
+        }
+
+        return idList;
+    }
+
+
 }

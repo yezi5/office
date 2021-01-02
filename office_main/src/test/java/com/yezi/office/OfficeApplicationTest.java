@@ -100,7 +100,7 @@ public class OfficeApplicationTest {
 
     @Test
     public void test(){
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 60; i++) {
             System.out.println(StringUtils.getId());
         }
     }
