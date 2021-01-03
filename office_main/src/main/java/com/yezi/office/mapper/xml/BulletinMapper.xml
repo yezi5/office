@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yezi.office.mapper.AffairMapper">
+<mapper namespace="com.yezi.office.mapper.BulletinMapper">
 
     <update id="approve">
-        update office_affair
-        set affair_isOk = #{affairIsOk}
-        where affair_id = #{affairId}
+        update office_bulletin
+        set bulletin_isActive = #{isActive}
+        where bulletin_id = #{bulletinId}
     </update>
 
 </mapper>

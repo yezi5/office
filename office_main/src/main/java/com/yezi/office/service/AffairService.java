@@ -22,4 +22,12 @@ public interface AffairService extends IService<Affair> {
      * @return
      */
     Map<String, Object> find(AffairQuery query);
+
+    /**
+     * 审批事务，改变申请事务状态
+     * @param affairId
+     * @param affairIsOk
+     * @return
+     */
+    boolean approve(String affairId, boolean affairIsOk);
 }

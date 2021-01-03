@@ -34,10 +34,20 @@ public class AffairController {
     @PostMapping("/list")
     public R find(@RequestBody AffairQuery query){
 
-
+        System.out.println(query);
         Map<String, Object> map = service.find(query);
 
         return R.ok().data(map);
+    }
+
+    @ApiOperation("审批接口，改变事务状态")
+    @GetMapping("/approve/{id}/{status}")
+    public R approve(@PathVariable("id") String affairId,
+                     @PathVariable("status") boolean affairIsOk){
+
+        boolean rs = service.approve(affairId,affairIsOk);
+
+        return R.ok();
     }
 
 }

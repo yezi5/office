@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface AffairMapper extends BaseMapper<Affair> {
 
+    int approve(String affairId, Integer affairIsOk);
 }

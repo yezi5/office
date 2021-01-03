@@ -3,8 +3,11 @@ delete from office_affair where 1 = 1;
 delete from office_department where 1 = 1;
 delete from office_user where 1 = 1;
 delete from office_clock where 1 = 1;
+delete from office_bulletin where 1 = 1;
 
-# 初始数据
+# 初始化数据库
+
+# 初始化部门数据
 insert into office_department
 values
        ('9a47cda467f540b3b974aab20ed26e5d','人事部','管理人员调动',5,'1315356783'),

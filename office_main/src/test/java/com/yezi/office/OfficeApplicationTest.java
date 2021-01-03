@@ -81,7 +81,7 @@ public class OfficeApplicationTest {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("office_affair");//表名称
+        strategy.setInclude("office_bulletin");//表名称
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 

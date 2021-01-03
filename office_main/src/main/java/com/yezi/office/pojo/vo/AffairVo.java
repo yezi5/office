@@ -34,7 +34,7 @@ public class AffairVo {
     private String affairEndTime;
     private String affairTime;
     private String affairMoney;
-    private String affairIsOk;
+    private Boolean affairIsOk;
 
     public AffairVo() {
     }
@@ -88,16 +88,16 @@ public class AffairVo {
         this.affairMoney = affairMoney;
     }
 
-    public String getAffairIsOk() {
+    public Boolean getAffairIsOk() {
         return affairIsOk;
     }
 
     public void setAffairIsOk(Integer affairIsOk) {
         if (affairIsOk == 1){
-            this.affairIsOk = "批准";
+            this.affairIsOk = true;
         }
         if (affairIsOk == 0){
-            this.affairIsOk = "不批准";
+            this.affairIsOk = false;
         }
     }
 

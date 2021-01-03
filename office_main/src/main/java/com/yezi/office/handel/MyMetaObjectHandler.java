@@ -10,13 +10,16 @@ import java.util.Date;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        // 自动填充创建时间
+        // 自动填充创建时间、修改时间
         this.setFieldValByName("gmtCreate", new Date(), metaObject);
+        this.setFieldValByName("gmtModified", new Date(), metaObject);
+        this.setFieldValByName("bulletinIsactive", 1, metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-
+        // 自动填充修改时间
+        this.setFieldValByName("gmtModified", new Date(), metaObject);
     }
 
 
