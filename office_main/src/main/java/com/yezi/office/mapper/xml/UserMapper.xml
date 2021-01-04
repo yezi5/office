@@ -2,5 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yezi.office.mapper.UserMapper">
 
+    <update id="refreshToken" parameterType="map">
+        update office_user
+        set token = #{token}
+        where user_id = #{userId}
+    </update>
 
 </mapper>

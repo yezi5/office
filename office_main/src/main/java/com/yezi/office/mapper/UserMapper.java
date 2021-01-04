@@ -6,6 +6,7 @@ import com.yezi.office.pojo.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,4 +19,5 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    int refreshToken(Map<String, String> map);
 }

@@ -39,4 +39,14 @@ public interface UserService extends IService<User> {
      * @return
      */
     List<String> listByUserName(String username);
+
+    User loadByUserName(String username);
+
+    /**
+     * 刷新指定用户的token
+     * @param userId
+     * @param token
+     * @return
+     */
+    int refreshToken(String userId,String token);
 }

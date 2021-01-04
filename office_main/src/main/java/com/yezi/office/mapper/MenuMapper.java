@@ -1,4 +1,4 @@
-package com.yezi.office.acl.mapper;
+package com.yezi.office.mapper;
 
 import com.yezi.office.acl.pojo.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -1,7 +1,7 @@
 package com.yezi.office.acl.service.impl;
 
 import com.yezi.office.acl.pojo.RoleMenu;
-import com.yezi.office.acl.mapper.RoleMenuMapper;
+import com.yezi.office.mapper.RoleMenuMapper;
 import com.yezi.office.acl.service.RoleMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

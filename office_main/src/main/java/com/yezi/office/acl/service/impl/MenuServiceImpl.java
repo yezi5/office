@@ -1,7 +1,7 @@
 package com.yezi.office.acl.service.impl;
 
 import com.yezi.office.acl.pojo.Menu;
-import com.yezi.office.acl.mapper.MenuMapper;
+import com.yezi.office.mapper.MenuMapper;
 import com.yezi.office.acl.service.MenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

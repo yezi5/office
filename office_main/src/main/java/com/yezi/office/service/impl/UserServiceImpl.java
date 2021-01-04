@@ -34,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private DepartmentService departmentService;
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public Map<String,Object> pageQuery(Query query) {
@@ -102,6 +104,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         return idList;
+    }
+
+    @Override
+    public User loadByUserName(String username) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",username);
+        User user = getOne(wrapper);
+        return user;
+    }
+
+    @Override
+    public int refreshToken(String userId, String token) {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("token",token);
+        int count = userMapper.refreshToken(map);
+
+        return count;
     }
 
 

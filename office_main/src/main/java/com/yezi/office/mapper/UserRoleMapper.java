@@ -1,4 +1,4 @@
-package com.yezi.office.acl.mapper;
+package com.yezi.office.mapper;
 
 import com.yezi.office.acl.pojo.UserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
