@@ -13,6 +13,7 @@ import com.yezi.office.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -64,6 +65,9 @@ public class BulletinServiceImpl extends ServiceImpl<BulletinMapper, Bulletin> i
         for (Bulletin record : page.getRecords()) {
             BulletinVo bulletinVo = new BulletinVo();
             BeanUtils.copyProperties(record,bulletinVo);
+            String returnHtml = HtmlUtils.htmlUnescape(record.getBulletinContext());
+            bulletinVo.setBulletinContext(returnHtml);
+            bulletinVo.setBulletinIsactive(record.getBulletinIsactive());
             bulletinList.add(bulletinVo);
         }
 

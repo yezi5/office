@@ -71,8 +71,8 @@ public class OfficeApplicationTest {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.yezi");
-        pc.setModuleName("office"); //模块名
+        pc.setParent("com.yezi.office");
+        pc.setModuleName("acl"); //模块名
         pc.setController("controller");
         pc.setEntity("pojo");
         pc.setService("service");
@@ -81,7 +81,7 @@ public class OfficeApplicationTest {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("office_bulletin");//表名称
+        strategy.setInclude("user_role","role","role_menu","menu");//表名称
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 

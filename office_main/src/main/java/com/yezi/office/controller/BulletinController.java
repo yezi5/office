@@ -61,5 +61,7 @@ public class BulletinController {
 
         return R.ok();
     }
+
+
 }
 

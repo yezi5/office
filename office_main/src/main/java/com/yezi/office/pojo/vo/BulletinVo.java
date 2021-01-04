@@ -51,4 +51,12 @@ public class BulletinVo {
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = DateUtil.format(gmtModified,"yyyy-MM-dd HH:mm:ss");
     }
+
+    public void setBulletinIsactive(Integer bulletinIsactive) {
+        if (bulletinIsactive == 1){
+            this.bulletinIsactive = true;
+        }else {
+            this.bulletinIsactive = false;
+        }
+    }
 }
