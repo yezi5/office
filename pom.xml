@@ -6,7 +6,6 @@
     <modules>
         <module>office_main</module>
         <module>office_oss</module>
-        <module>office_log</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

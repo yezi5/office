@@ -2,6 +2,7 @@ package com.yezi.office.acl.handel;
 
 import com.yezi.office.utils.R;
 import com.yezi.office.utils.ResponseUtil;
+import com.yezi.office.utils.ResultCode;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,6 @@ import java.io.IOException;
 public class UserAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        ResponseUtil.out(httpServletResponse, R.error().message("登陆失败"));
+        ResponseUtil.out(httpServletResponse, R.error().code(ResultCode.LOGIN_FAILURE).message("登陆失败"));
     }
 }

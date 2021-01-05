@@ -40,8 +40,8 @@ public class TokenFilter extends OncePerRequestFilter {
         MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(httpServletResponse);
 
         String token = wrappedRequest.getHeader(TokenUtils.TOKEN_NAME);
-
-        if (!StringUtils.isEmpty(token)){ 
+        System.out.println(token);
+        if (!"undefined".equals(token)){
             if (!TokenUtils.checkToken(token)){
                 throw new AccessDeniedException("token已过期，请重新登录！");
             }
