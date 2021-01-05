@@ -21,5 +21,4 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     List<String> roleNameList(String userId);
-
 }

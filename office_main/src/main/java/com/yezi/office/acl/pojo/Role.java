@@ -37,5 +37,6 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "创建时间")
     private Date gmtCreate;
 
-
+    @ApiModelProperty(value = "角色代码")
+    private String role_code;
 }

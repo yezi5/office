@@ -1,9 +1,18 @@
 package com.yezi.office.acl.controller;
 
 
+import com.yezi.office.acl.pojo.vo.MenuVo;
+import com.yezi.office.acl.service.MenuService;
+import com.yezi.office.utils.R;
+import com.yezi.office.utils.TokenUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -14,8 +23,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-01-04
  */
 @RestController
-@RequestMapping("/acl/menu")
+@RequestMapping("/office/acl/menu")
 public class MenuController {
 
+    @Autowired
+    private MenuService menuService;
+
+    @GetMapping("buildPage")
+    public R buildPage(HttpServletRequest request){
+        String userId = TokenUtils.getUserIdByJwtToken(request);
+
+        List<MenuVo> menuList = menuService.listByAuther(userId);
+
+        return R.ok().data("menuList",menuList);
+    }
 }
 

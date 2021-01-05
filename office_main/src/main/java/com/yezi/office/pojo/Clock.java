@@ -36,12 +36,6 @@ public class Clock implements Serializable {
     @ApiModelProperty(value = "打卡时间")
     private Date clockTime;
 
-    @ApiModelProperty(value = "打卡地点")
-    private String clockAddress;
-
-    @ApiModelProperty(value = "打卡类型(1 上班打卡 0 下班打卡)")
-    private String clockType;
-
     @ApiModelProperty(value = "下班时记录一天的工作内容")
     private String clockWork;
 

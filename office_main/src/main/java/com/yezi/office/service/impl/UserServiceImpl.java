@@ -3,6 +3,7 @@ package com.yezi.office.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mysql.jdbc.StringUtils;
+import com.yezi.office.acl.service.RoleService;
 import com.yezi.office.pojo.Department;
 import com.yezi.office.pojo.User;
 import com.yezi.office.mapper.UserMapper;
@@ -36,6 +37,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private DepartmentService departmentService;
     @Resource
     private UserMapper userMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public Map<String,Object> pageQuery(Query query) {
@@ -122,6 +125,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         int count = userMapper.refreshToken(map);
 
         return count;
+    }
+
+    @Override
+    public UserVo getLoginUser(String userId) {
+        User user = getById(userId);
+        UserVo userInfo = new UserVo();
+        BeanUtils.copyProperties(user,userInfo);
+        userInfo.setCreate(user.getGmtCreate());
+
+        List<String> roleNameList = roleService.roleNameList(userId);
+        userInfo.setRoleNameList(roleNameList);
+
+        return userInfo;
     }
 
 

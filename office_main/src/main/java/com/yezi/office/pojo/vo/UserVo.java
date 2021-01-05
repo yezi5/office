@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 叶子
@@ -21,6 +22,9 @@ public class UserVo {
 
     @ApiModelProperty(value = "用户名")
     private String username;
+
+    @ApiModelProperty(value = "角色名列表")
+    private List<String> roleNameList;
 
     @ApiModelProperty(value = "用户密码")
     private String password;

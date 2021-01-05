@@ -86,9 +86,21 @@ public class TokenUtils {
      * @return
      */
     public static String getUserIdByJwtToken(HttpServletRequest request) {
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader(TOKEN_NAME);
         if(org.springframework.util.StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("id");
+    }
+
+    /**
+     * 根据token获取用户id
+     * @param token
+     * @return
+     */
+    public static String getUserIdByToken(String token) {
+        if(org.springframework.util.StringUtils.isEmpty(token)) return "";
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token);
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
     }

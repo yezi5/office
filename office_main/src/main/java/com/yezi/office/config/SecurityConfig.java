@@ -87,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/office/user/login",
                         "/office/user/logout").permitAll()
+                .antMatchers("/office/oss/uploadAvatar").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

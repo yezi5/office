@@ -34,13 +34,13 @@ public class Menu implements Serializable {
     private String icon;
 
     @ApiModelProperty(value = "路由")
-    private String index;
+    private String menuIndex;
 
     @ApiModelProperty(value = "标题")
     private String title;
 
     @ApiModelProperty(value = "菜单状态（1可用，0禁用）")
-    private String menuStatus;
+    private Integer menuStatus;
 
 
 }

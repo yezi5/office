@@ -3,6 +3,7 @@ package com.yezi.office.acl.filter;
 import com.yezi.office.acl.pojo.SecurityUser;
 import com.yezi.office.acl.service.impl.UserDetailsServiceImpl;
 import com.yezi.office.pojo.User;
+import com.yezi.office.utils.AllowList;
 import com.yezi.office.utils.MultiReadHttpServletRequest;
 import com.yezi.office.utils.MultiReadHttpServletResponse;
 import com.yezi.office.utils.TokenUtils;
@@ -36,24 +37,34 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
-        MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(httpServletResponse);
+        if (AllowList.hasElement(httpServletRequest.getRequestURI())){
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        }else {
+            MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
+            MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(httpServletResponse);
 
-        String token = wrappedRequest.getHeader(TokenUtils.TOKEN_NAME);
-        System.out.println(token);
-        if (!"undefined".equals(token)){
-            if (!TokenUtils.checkToken(token)){
-                throw new AccessDeniedException("token已过期，请重新登录！");
-            }
-            SecurityUser securityUser = (SecurityUser) service.getUserByToken(token);
-            if (securityUser == null || securityUser.getCurrentUserInfo() == null){
-                throw new AccessDeniedException("token失效，请重新登录！");
-            }
+            System.out.println(wrappedRequest.getRequestURI());
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
-            // 全局注入角色权限信息和登录用户基本信息
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+            String token = wrappedRequest.getHeader(TokenUtils.TOKEN_NAME);
+            System.out.println(token);
+            if (!"undefined".equals(token)){
+                if (!TokenUtils.checkToken(token)){
+                    throw new AccessDeniedException("token已过期，请重新登录！");
+                }
+                SecurityUser securityUser = (SecurityUser) service.getUserByToken(token);
+                if (securityUser == null || securityUser.getCurrentUserInfo() == null){
+                    throw new AccessDeniedException("token失效，请重新登录！");
+                }
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
+                // 全局注入角色权限信息和登录用户基本信息
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(wrappedRequest, wrappedResponse);
         }
-        filterChain.doFilter(wrappedRequest, wrappedResponse);
+
+
     }
 }

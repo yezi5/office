@@ -1,9 +1,12 @@
 # 格式化数据库，防止主键冲突
-delete from office_affair where 1 = 1;
 delete from office_department where 1 = 1;
 delete from office_user where 1 = 1;
-delete from office_clock where 1 = 1;
+delete from office_affair where 1 = 1;
+delete from menu where 1 = 1;
+delete from role where 1 = 1;
+delete from role_menu where 1 = 1;
 delete from office_bulletin where 1 = 1;
+delete from user_role where 1 = 1;
 
 # 初始化数据库
 
@@ -102,6 +105,61 @@ values
        ('c5a693432c8048e3a318c5b7d1703d04','e8f10cfc51c44370bc86de547fd872c2','会议室申请','每周例会',0,'2020-01-01 12:12:00','2020-01-02 12:12:00','24:00:00','郑州','');
 
 
+# 初始化权限管理模块信息
+
+## 1. 初始化菜单信息
+
+insert into menu
+values
+       ('ecb2af8eaefc45bbbe2fc57b74018ad1',null,'el-icon-lx-home','/dashboard','系统首页',1), # 系统首页
+       ('ca1677520ac1414eaa70e8720abc467e',null,'el-icon-lx-home','3','用户管理',1), # 用户管理
+       ('f046552a5c604abcb20c2af8dbd3905e','ca1677520ac1414eaa70e8720abc467e','el-icon-lx-home','/userCtrl','用户列表',1), # 用户列表
+       ('b546fb08b38e4c42b0366d528a6fa58a','ca1677520ac1414eaa70e8720abc467e','el-icon-lx-home','/userInfo','用户注册',1), # 用户注册
+       ('5cbb86814f0447c1906de7dcd01777d4',null,'el-icon-lx-home','/depart','部门列表',1), # 部门列表
+       ('00cf795c0e9048259eb68612d48c93dc',null,'el-icon-lx-home','/affair','事务审批',1), # 事务审批
+       ('da5d0a69a64a40e48b8a3567b60e56b8',null,'el-icon-lx-home','/bulletinList','公告管理',1), # 公告管理
+       ('06177d81e4de42e1bf3101f3b8a45721',null,'el-icon-lx-home','/affairAdd','事务申请',1); # 事务申请
+
+## 2. 初始化角色信息
+
+insert into role
+values
+       ('33c2da41f6ec46459cf0f4c41d32c4e3','超级管理员',1,'2021-01-05 21:00:00','admin'),
+       ('3beec2d1fd764b5b97517d81578a6ad2','普通用户',1,'2021-01-05 21:00:00','user');
+
+## 3. 初始化角色菜单信息
+### 超级管理员控制全部菜单,普通用户暂时设定为只有 系统首页 和 部门列表
+insert into role_menu
+values
+       ('9dcc2bfc6b4b42978e087cd3cebbcb83','33c2da41f6ec46459cf0f4c41d32c4e3','ecb2af8eaefc45bbbe2fc57b74018ad1',1),
+       ('f11df8ecb5ae40b78ccc2698d4fe1be5','33c2da41f6ec46459cf0f4c41d32c4e3','ca1677520ac1414eaa70e8720abc467e',1),
+       ('c8633bd9421e4eb3a365f1be2786aa92','33c2da41f6ec46459cf0f4c41d32c4e3','f046552a5c604abcb20c2af8dbd3905e',1),
+       ('0a4e561636284e03aed5675d171bc73c','33c2da41f6ec46459cf0f4c41d32c4e3','b546fb08b38e4c42b0366d528a6fa58a',1),
+       ('11d91d1fc2ba468997cbed3250e07153','33c2da41f6ec46459cf0f4c41d32c4e3','5cbb86814f0447c1906de7dcd01777d4',1),
+       ('9cf5281cd82e4b3fb09f61c0d1541760','33c2da41f6ec46459cf0f4c41d32c4e3','00cf795c0e9048259eb68612d48c93dc',1),
+       ('c08db047f21943f0b5e2502aff3bbeec','33c2da41f6ec46459cf0f4c41d32c4e3','da5d0a69a64a40e48b8a3567b60e56b8',1),
+       ('4e4a7b6e2a7845baa4fed877d209b5dc','33c2da41f6ec46459cf0f4c41d32c4e3','06177d81e4de42e1bf3101f3b8a45721',1),
+       ('7b9ce1112ff24a4da72878914f724979','3beec2d1fd764b5b97517d81578a6ad2','ecb2af8eaefc45bbbe2fc57b74018ad1',1),
+       ('7978ee8531d44735803d6d3814505905','3beec2d1fd764b5b97517d81578a6ad2','5cbb86814f0447c1906de7dcd01777d4',1);
+
+## 3. 初始化用户角色信息, 全考语 为超级管理员
+insert into user_role
+values
+       ('f886c63636a946efba4ba4b033577f1b','0cc70bb29e0541a7a2a261404e7adec5','33c2da41f6ec46459cf0f4c41d32c4e3',1,'2021-01-05 21:00:00'),
+       ('33074f9fb77743d1bc9773d389c63849','bb2e34c446074ca1908f5e06ba2db27a','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('874c8ae36bab4416a7723cfcf9a487cc','c2591a8bd8fe4001a34fcc8e9f8bf336','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('51bf20c5c3cb4dccb2e146e96ea773cb','6f5570153a3944ecaa90506f2a90c4ea','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('b3b6d99b94ec4b05b51bbf01d12b0cc8','41b69629a6294077a71150d1a2912de3','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('34ff3a1a9c4141a9928e1716414f7c9c','4ad501ed57c24fe9aa4afe996fbe3813','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('026b3e4982734663a16876745316c073','755349e23e2a4c2f9d91198a8a29c193','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('e4e468b67962449a9aca7eb6a8e4f5de','884efda0fafa4bb8831cfcebea30bb13','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('257e373090ea4efead07535ebe3c9596','65bbfd96d3bc41eaa9d438252edb2b15','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('b6630232be524cc5b6a17cf44d67f1a8','d5e13822383a408d8625f42c3dfdfecc','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('f3c7c0b99f92455db6ec81e01bebf894','19c00a33200649a7bba7369e4382a574','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('7998b102a1e040b3b1b13231f6efb81a','56a393abade544c79e806c0b7d129612','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('998e8e741eae48328054ab307741a8a8','6e5966cb730d459db28df89858867a99','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('84bcd8b1051348cebc78c0c3b8ebc255','c21286b9b7d147f0bf42ac8d8f26951f','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00'),
+       ('d9c19fa5837548ceab53fd4628b3786b','e8f10cfc51c44370bc86de547fd872c2','3beec2d1fd764b5b97517d81578a6ad2',1,'2021-01-05 21:00:00');
 
 
 

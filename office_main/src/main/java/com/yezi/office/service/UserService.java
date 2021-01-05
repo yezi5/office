@@ -49,4 +49,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     int refreshToken(String userId,String token);
+
+    /**
+     * 获取登陆用户信息
+     * @param userId
+     * @return
+     */
+    UserVo getLoginUser(String userId);
 }
