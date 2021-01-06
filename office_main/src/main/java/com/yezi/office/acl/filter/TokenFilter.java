@@ -37,7 +37,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (AllowList.hasElement(httpServletRequest.getRequestURI())){
+        /*if (AllowList.hasElement(httpServletRequest.getRequestURI())){
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
             MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
@@ -63,8 +63,34 @@ public class TokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(wrappedRequest, wrappedResponse);
+        }*/
+
+        MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
+        MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(httpServletResponse);
+
+        System.out.println(wrappedRequest.getRequestURI());
+
+
+
+        String token = wrappedRequest.getHeader(TokenUtils.TOKEN_NAME);
+        System.out.println(token);
+        if (!(token==null)){
+            if (!"ubdefined".equals(token)){
+                if (!TokenUtils.checkToken(token)){
+                    throw new AccessDeniedException("token已过期，请重新登录！");
+                }
+                SecurityUser securityUser = (SecurityUser) service.getUserByToken(token);
+                if (securityUser == null || securityUser.getCurrentUserInfo() == null){
+                    throw new AccessDeniedException("token失效，请重新登录！");
+                }
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
+                // 全局注入角色权限信息和登录用户基本信息
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }else {
+                filterChain.doFilter(wrappedRequest, wrappedResponse);
+            }
         }
-
-
+        filterChain.doFilter(wrappedRequest, wrappedResponse);
     }
 }

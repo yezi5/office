@@ -20,18 +20,18 @@ public class AllowList {
         allowList.add("/office/oss/uploadAvatar");
         allowList.add("/userlogin");
         allowList.add("/userlogout");
-        allowList.add("/userjwt");
-        allowList.add("/v2/api-docs");
-        allowList.add("/swagger-resources/configuration/ui");
-        allowList.add("/swagger-resources");
-        allowList.add("/swagger-resources/configuration/security");
+//        allowList.add("/userjwt");
+//        allowList.add("/v2/api-docs");
+//        allowList.add("/swagger-resources/configuration/ui");
+//        allowList.add("/swagger-resources");
+//        allowList.add("/swagger-resources/configuration/security");
         allowList.add("/swagger-ui.html");
-        allowList.add("/css/**");
-        allowList.add("/js/**");
-        allowList.add("/images/**");
-        allowList.add("/webjars/**");
-        allowList.add("/import/test");
-        allowList.add("**/favicon.ico");
+//        allowList.add("/css/**");
+//        allowList.add("/js/**");
+//        allowList.add("/images/**");
+//        allowList.add("/webjars/**");
+//        allowList.add("/import/test");
+//        allowList.add("**/favicon.ico");
     }
 
     public static boolean hasElement(String uri){

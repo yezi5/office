@@ -1,5 +1,6 @@
 package com.yezi.office.pojo.para;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import lombok.Data;
  * @Data 2021/1/3 星期日 10:05
  */
 @Data
+@ApiModel("公告详细信息")
 public class BulletinRelease {
 
     @ApiModelProperty(value = "公告标题")

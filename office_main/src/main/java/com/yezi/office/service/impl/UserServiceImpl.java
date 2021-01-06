@@ -3,7 +3,10 @@ package com.yezi.office.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mysql.jdbc.StringUtils;
+import com.yezi.office.acl.pojo.vo.RoleVo;
+import com.yezi.office.acl.pojo.vo.UserRoleVo;
 import com.yezi.office.acl.service.RoleService;
+import com.yezi.office.acl.service.UserRoleService;
 import com.yezi.office.pojo.Department;
 import com.yezi.office.pojo.User;
 import com.yezi.office.mapper.UserMapper;
@@ -39,6 +42,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Override
     public Map<String,Object> pageQuery(Query query) {
@@ -138,6 +143,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userInfo.setRoleNameList(roleNameList);
 
         return userInfo;
+    }
+
+    @Override
+    public List<UserRoleVo> getUserRoleList() {
+        List<UserRoleVo> userRoleVoList = new ArrayList<>();
+        // 1. 获取用户列表
+        List<User> userList = list();
+        // 2. 构建返回数组
+        for (User user : userList) {
+            UserRoleVo userRoleVo = new UserRoleVo();
+            BeanUtils.copyProperties(user,userRoleVo);
+            // 获取部门名
+            String departName = departmentService.getById(user.getUserDapartmentId()).getDepartName();
+            userRoleVo.setDepartName(departName);
+            // 获取创建时间
+            userRoleVo.setGmtCreate(user.getGmtCreate());
+            // 获取角色ID列表
+            List<String> roleIdList = userRoleService.listRoleIdByUserId(user.getUserId());
+            userRoleVo.setRoleIdList(roleIdList);
+            // 添加到返回集合
+            userRoleVoList.add(userRoleVo);
+        }
+
+        return userRoleVoList;
     }
 
 

@@ -164,6 +164,19 @@ values
 
 
 
+## 新增三个菜单
+insert into menu
+values
+       ('1a2b99ca246b4c7d801a5a0c7ba143e4',null,'el-icon-lx-calendar','2','权限管理',1),
+       ('2deb785ba2ca4a939793907512453d75','1a2b99ca246b4c7d801a5a0c7ba143e4','el-icon-lx-calendar','/userRoleCtrl','用户授权',1),
+       ('566013cf43784beea032aa0aa6b5aaf8','1a2b99ca246b4c7d801a5a0c7ba143e4','el-icon-lx-calendar','/roleCtrl','角色管理',1);
+
+## 为超级管理员授权这三个菜单的权限
+insert into role_menu
+values
+       ('c61bfd761942445c880e6dcc81939b7d','33c2da41f6ec46459cf0f4c41d32c4e3','1a2b99ca246b4c7d801a5a0c7ba143e4',1),
+       ('56959be6676942b8a66c0b65dfd002d5','33c2da41f6ec46459cf0f4c41d32c4e3','2deb785ba2ca4a939793907512453d75',1),
+       ('b88302571349497f89db53b4a77ea791','33c2da41f6ec46459cf0f4c41d32c4e3','566013cf43784beea032aa0aa6b5aaf8',1);
 
 
 

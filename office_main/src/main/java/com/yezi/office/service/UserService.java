@@ -1,5 +1,6 @@
 package com.yezi.office.service;
 
+import com.yezi.office.acl.pojo.vo.UserRoleVo;
 import com.yezi.office.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yezi.office.pojo.para.Query;
@@ -56,4 +57,13 @@ public interface UserService extends IService<User> {
      * @return
      */
     UserVo getLoginUser(String userId);
+
+    /**
+     * 获取用户信息 + 角色列表
+     * 用户授权模块展示
+     *
+     * @return
+     */
+    List<UserRoleVo> getUserRoleList();
+
 }

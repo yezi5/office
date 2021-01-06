@@ -12,7 +12,9 @@ import com.yezi.office.utils.AffairsType;
 import com.yezi.office.utils.R;
 import com.yezi.office.utils.TokenUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ import java.util.Map;
  * @author 叶子
  * @since 2021-01-01
  */
-@Api(tags = "事务控制器")
+@Api(tags = "事务控制接口")
 @RestController
 @RequestMapping("/office/affair")
 @CrossOrigin
@@ -38,9 +40,9 @@ public class AffairController {
     @Autowired
     private AffairService service;
 
-    @ApiOperation("查询接口")
+    @ApiOperation("查询接口 条件查询 + 分页查询")
     @PostMapping("/list")
-    public R find(@RequestBody AffairQuery query){
+    public R find(@ApiParam("查询请求参数") @RequestBody AffairQuery query){
 
         System.out.println(query);
         Map<String, Object> map = service.find(query);
@@ -50,8 +52,8 @@ public class AffairController {
 
     @ApiOperation("审批接口，改变事务状态")
     @GetMapping("/approve/{id}/{status}")
-    public R approve(@PathVariable("id") String affairId,
-                     @PathVariable("status") boolean affairIsOk){
+    public R approve(@ApiParam("事务ID") @PathVariable("id") String affairId,
+                     @ApiParam("事务状态 true 批准 false 不批准") @PathVariable("status") boolean affairIsOk){
 
         boolean rs = service.approve(affairId,affairIsOk);
 
@@ -59,6 +61,7 @@ public class AffairController {
     }
 
     @GetMapping("listAffairType")
+    @ApiOperation("获取所有的事务类型")
     public R listAffairType(){
         List<String> affairTypeList = AffairsType.AFFAIR_TYPE_LIST;
         affairTypeList.remove("");
@@ -66,7 +69,9 @@ public class AffairController {
     }
 
     @PostMapping("add")
-    public R addAffair(@RequestBody AffairInfo affairInfo, HttpServletRequest request){
+    @ApiOperation("申请事务")
+    public R addAffair(@ApiParam("事务详细信息") @RequestBody AffairInfo affairInfo,
+                       HttpServletRequest request){
         String userId = TokenUtils.getUserIdByJwtToken(request);
 
         Affair affair = new Affair();

@@ -39,7 +39,7 @@ public class BulletinVo {
     private String gmtModified;
 
     @ApiModelProperty(value = "创建用户")
-    private String createUserId;
+    private String createUser;
 
     @ApiModelProperty(value = "修改用户")
     private String updateUserId;

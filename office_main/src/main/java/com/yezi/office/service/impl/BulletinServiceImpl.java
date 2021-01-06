@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yezi.office.pojo.Bulletin;
 import com.yezi.office.mapper.BulletinMapper;
+import com.yezi.office.pojo.User;
 import com.yezi.office.pojo.para.BulletinQuery;
 import com.yezi.office.pojo.vo.BulletinVo;
 import com.yezi.office.service.BulletinService;
@@ -66,6 +67,11 @@ public class BulletinServiceImpl extends ServiceImpl<BulletinMapper, Bulletin> i
             BulletinVo bulletinVo = new BulletinVo();
             BeanUtils.copyProperties(record,bulletinVo);
             String returnHtml = HtmlUtils.htmlUnescape(record.getBulletinContext());
+            String createUserId = record.getCreateUserId();
+            if (!StrUtil.isEmpty(createUserId)){
+                User user = userService.getById(createUserId);
+                bulletinVo.setCreateUser(user.getUsername());
+            }
             bulletinVo.setBulletinContext(returnHtml);
             bulletinVo.setBulletinIsactive(record.getBulletinIsactive());
             bulletinList.add(bulletinVo);

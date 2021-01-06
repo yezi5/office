@@ -109,7 +109,7 @@ public class OfficeApplicationTest {
 
     @Test
     public void test(){
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 3; i++) {
             System.out.println(StringUtils.getId());
         }
     }
@@ -170,5 +170,10 @@ public class OfficeApplicationTest {
     @Test
     public void listByAutherTest(){
         System.out.println(R.ok().data("test",menuService.listByAuther("1346328088017047553")).toString());
+    }
+
+    @Test
+    public void treeMenuTest(){
+        System.out.println(menuService.treeMenu());
     }
 }
