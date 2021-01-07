@@ -59,7 +59,7 @@ public interface UserService extends IService<User> {
     UserVo getLoginUser(String userId);
 
     /**
-     * 获取用户信息 + 角色列表
+     * 获取用户信息 + 角色ID列表
      * 用户授权模块展示
      *
      * @return

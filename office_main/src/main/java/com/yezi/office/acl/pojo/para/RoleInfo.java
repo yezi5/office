@@ -2,6 +2,7 @@ package com.yezi.office.acl.pojo.para;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @Data 2021/1/6 星期三 15:03
  */
 @Data
+@ApiModel("封装角色信息 + 角色拥有的菜单权限")
 public class RoleInfo {
 
     @ApiModelProperty(value = "主键")

@@ -79,8 +79,7 @@ public class AffairController {
         affair.setAffairUserId(userId);
         affair.setAffairIsok(0);
         // 计算时长
-        long between = DateUtil.between(affairInfo.getAffairStartTime(), affairInfo.getAffairEndTime(), DateUnit.SECOND);
-        String affairTime = DateUtil.formatBetween(between, BetweenFormatter.Level.SECOND);
+        String affairTime = DateUtil.formatBetween(affairInfo.getAffairStartTime(), affairInfo.getAffairEndTime(), BetweenFormatter.Level.SECOND);
         affair.setAffairTime(affairTime);
         boolean save = service.save(affair);
         if (!save){

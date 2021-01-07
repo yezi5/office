@@ -27,7 +27,7 @@ import java.util.Map;
  * @author 叶子
  * @since 2021-01-02
  */
-@Api("公告控制接口")
+@Api(tags = "公告控制接口")
 @RestController
 @RequestMapping("/office/bulletin")
 @CrossOrigin

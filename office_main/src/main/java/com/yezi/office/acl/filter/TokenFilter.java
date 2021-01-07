@@ -37,7 +37,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        /*if (AllowList.hasElement(httpServletRequest.getRequestURI())){
+        if (AllowList.hasElement(httpServletRequest.getRequestURI())){
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
             MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
@@ -63,9 +63,12 @@ public class TokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(wrappedRequest, wrappedResponse);
+        }
+        /*if ("/office/oss/uploadAvatar".equals(httpServletRequest.getRequestURI())){
+            filterChain.doFilter(httpServletRequest,httpServletResponse);
         }*/
 
-        MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
+        /*MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(httpServletRequest);
         MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(httpServletResponse);
 
         System.out.println(wrappedRequest.getRequestURI());
@@ -75,7 +78,7 @@ public class TokenFilter extends OncePerRequestFilter {
         String token = wrappedRequest.getHeader(TokenUtils.TOKEN_NAME);
         System.out.println(token);
         if (!(token==null)){
-            if (!"ubdefined".equals(token)){
+            if (!"undefined".equals(token)){
                 if (!TokenUtils.checkToken(token)){
                     throw new AccessDeniedException("token已过期，请重新登录！");
                 }
@@ -91,6 +94,6 @@ public class TokenFilter extends OncePerRequestFilter {
                 filterChain.doFilter(wrappedRequest, wrappedResponse);
             }
         }
-        filterChain.doFilter(wrappedRequest, wrappedResponse);
+        filterChain.doFilter(wrappedRequest, wrappedResponse);*/
     }
 }

@@ -9,7 +9,9 @@ import com.yezi.office.acl.service.RoleService;
 import com.yezi.office.acl.service.UserRoleService;
 import com.yezi.office.service.UserService;
 import com.yezi.office.utils.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ import java.util.List;
  * @author 叶子
  * @since 2021-01-04
  */
+@Api(tags = "角色控制接口")
 @RestController
 @RequestMapping("/office/acl/role")
 public class RoleController {
@@ -35,6 +38,7 @@ public class RoleController {
     private UserRoleService userRoleService;
 
     @GetMapping("list")
+    @ApiOperation("获取角色列表")
     public R getAllRoles(){
         List<RoleVo> roleList = roleService.listVo();
 
@@ -42,6 +46,7 @@ public class RoleController {
     }
 
     @GetMapping("getUserRoleList")
+    @ApiOperation("获取用户信息 + 角色ID列表")
     public R getUserRole(){
 
         List<UserRoleVo> userRoleVoList = userService.getUserRoleList();
@@ -50,22 +55,24 @@ public class RoleController {
     }
 
     @GetMapping("getRoleIdList/{id}")
-    public R getRoleIdList(@PathVariable("id") String userId){
+    @ApiOperation("根据用户ID获取角色ID列表")
+    public R getRoleIdList(@ApiParam("用户ID") @PathVariable("id") String userId){
         List<String> roleIdList = userRoleService.listRoleIdByUserId(userId);
 
         return R.ok().data("roleIdList",roleIdList);
     }
 
-    @ApiOperation("修改用户角色")
+    @ApiOperation("根据用户ID修改用户拥有的角色信息")
     @PostMapping("updateUserRole")
-    public R updateUserRole(@RequestBody UserRoleUpdateInfo info){
+    public R updateUserRole(@ApiParam("用户ID + 角色ID列表") @RequestBody UserRoleUpdateInfo info){
         boolean rs = userRoleService.updateUserRole(info);
 
         return R.ok();
     }
 
     @PostMapping("createRole")
-    public R createRole(@RequestBody RoleInfo roleInfo){
+    @ApiOperation("创建新的角色")
+    public R createRole(@ApiParam("角色信息 + 角色拥有的菜单权限") @RequestBody RoleInfo roleInfo){
 
         boolean rs = roleService.createRole(roleInfo);
 
@@ -73,7 +80,8 @@ public class RoleController {
     }
 
     @PostMapping("updateRole")
-    public R updateRole(@RequestBody RoleInfo roleInfo){
+    @ApiOperation("根据角色ID修改角色信息 包括角色拥有的菜单权限")
+    public R updateRole(@ApiParam("角色信息 + 角色拥有的菜单权限") @RequestBody RoleInfo roleInfo){
 
         boolean rs = roleService.updateRole(roleInfo);
 

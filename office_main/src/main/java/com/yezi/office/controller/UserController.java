@@ -2,8 +2,11 @@ package com.yezi.office.controller;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.yezi.office.acl.pojo.UserRole;
 import com.yezi.office.acl.pojo.vo.MenuVo;
 import com.yezi.office.acl.service.MenuService;
+import com.yezi.office.acl.service.UserRoleService;
 import com.yezi.office.pojo.User;
 import com.yezi.office.pojo.para.UserInfo;
 import com.yezi.office.pojo.para.Query;
@@ -47,11 +50,11 @@ public class UserController {
     @Autowired
     private ClockService clockService;
     @Autowired
-    private MenuService menuService;
+    private UserRoleService userRoleService;
 
     @PostMapping("/list")
     @ApiOperation("用户查询接口（分页查询+条件查询）")
-    public R userList(@RequestBody Query query){
+    public R userList(@ApiParam("查询参数") @RequestBody Query query){
 
         Map<String, Object> map = userService.pageQuery(query);
 
@@ -60,14 +63,19 @@ public class UserController {
 
     @DeleteMapping("/delete/{userId}")
     @ApiOperation("根据用户ID删除用户")
+    @Transactional
     public R delete(@ApiParam("用户ID") @PathVariable("userId") String userId){
         userService.removeById(userId);
+        UpdateWrapper<UserRole> wrapper = new UpdateWrapper<>();
+        wrapper.eq("user_id",userId);
+        userRoleService.remove(wrapper);
+
         return R.ok();
     }
 
     @PostMapping("/add")
     @ApiOperation("添加用户信息")
-    public R addUser(@RequestBody UserInfo userInfo){
+    public R addUser(@ApiParam("用户详细信息") @RequestBody UserInfo userInfo){
         User user = new User();
         BeanUtils.copyProperties(userInfo,user);
         user.setPassword(SecureUtil.md5(user.getPassword()));
@@ -77,15 +85,17 @@ public class UserController {
     }
 
     @GetMapping("/get/{id}")
-    public R getUserById(@PathVariable("id") String userId){
+    @ApiOperation("根据用户ID获取用户信息")
+    public R getUserById(@ApiParam("用户ID") @PathVariable("id") String userId){
         Map<String, Object> map = userService.getUserVoById(userId);
 
         return R.ok().data(map);
     }
 
     @PostMapping("/update")
+    @ApiOperation("根据用户ID更新用户信息")
     @Transactional
-    public R update(@RequestBody UserInfo userInfo){
+    public R update(@ApiParam("用户详细信息") @RequestBody UserInfo userInfo){
         User user = new User();
         BeanUtils.copyProperties(userInfo,user);
         userService.updateById(user);
@@ -93,11 +103,13 @@ public class UserController {
     }
 
     @GetMapping("/test")
+    @ApiOperation("获取地区列表 暂时没有使用")
     public R test(){
         return R.ok().data("options",addressService.list());
     }
 
     @GetMapping("/signIn")
+    @ApiOperation("用户签到接口")
     public R signIn(HttpServletRequest request){
         String userId = TokenUtils.getUserIdByJwtToken(request);
         int rs = clockService.signIn(userId);
@@ -115,6 +127,7 @@ public class UserController {
     }
 
     @GetMapping("/signOut")
+    @ApiOperation("用户签退接口")
     public R signOut(HttpServletRequest request){
         String userId = TokenUtils.getUserIdByJwtToken(request);
         int rs = clockService.signOut(userId);
@@ -132,6 +145,7 @@ public class UserController {
     }
 
     @PostMapping("getLoginUser")
+    @ApiOperation("获取当前登录用户")
     public R getLoginUser(HttpServletRequest request){
         String userId = TokenUtils.getUserIdByJwtToken(request);
 
@@ -143,13 +157,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("buildPage")
+    // 此接口不再使用，移至 menuController
+    /*@GetMapping("buildPage")
     public R buildPage(HttpServletRequest request){
         String userId = TokenUtils.getUserIdByJwtToken(request);
 
         List<MenuVo> menuList = menuService.listByAuther(userId);
 
         return R.ok().data("menuList",menuList);
-    }
+    }*/
 }
 
